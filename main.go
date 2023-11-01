@@ -8,10 +8,12 @@ import (
 	sgin "github.com/rhine-tech/scene/scenes/gin"
 
 	asynctask "github.com/rhine-tech/scene/lens/infrastructure/asynctask/builder"
+	datasource "github.com/rhine-tech/scene/lens/infrastructure/datasource/builder"
 	ingestion "github.com/rhine-tech/scene/lens/infrastructure/ingestion/builder"
 	logger "github.com/rhine-tech/scene/lens/infrastructure/logger/builder"
 
 	bilisrv "infoserver/bilisrv/builder"
+	lyric "infoserver/lyric/builder"
 )
 
 func main() {
@@ -19,8 +21,10 @@ func main() {
 	builders := scene.BuilderArray{
 		logger.Builder{},
 		asynctask.Thunnus{},
+		datasource.MysqlBuilderFromConfig("scene.mysql"),
 		ingestion.DummyBuilder{},
 		bilisrv.JsonDB{},
+		lyric.DefaultBuilder{},
 	}
 	scene.BuildInitArray(builders).Inits()
 	registry.Logger.Infof("starting info_server...")
