@@ -17,6 +17,7 @@ func (d DefaultBuilder) Init() scene.LensInit {
 		registry.Register(service.NewLyricService(
 			registry.Load(repository.NewMysqlStorageRepository()),
 			registry.Load(repository.NewNeteaseSearchRepo()),
+			registry.Load(repository.NewKugouLyricSearch()),
 		))
 	}
 }

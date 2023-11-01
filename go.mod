@@ -6,6 +6,7 @@ go 1.20
 
 require (
 	github.com/AynaLivePlayer/miaosic v0.1.0
+	github.com/aynakeya/deepcolor v1.0.1
 	github.com/gin-gonic/gin v1.9.1
 	github.com/go-resty/resty/v2 v2.10.0
 	github.com/rhine-tech/scene v0.2.1
@@ -21,7 +22,6 @@ require (
 	github.com/XiaoMengXinX/Music163Api-Go v0.1.30 // indirect
 	github.com/andybalholm/cascadia v1.2.0 // indirect
 	github.com/antonfisher/nested-logrus-formatter v1.3.1 // indirect
-	github.com/aynakeya/deepcolor v1.0.1 // indirect
 	github.com/bytedance/sonic v1.9.1 // indirect
 	github.com/cespare/xxhash/v2 v2.2.0 // indirect
 	github.com/chenzhuoyu/base64x v0.0.0-20221115062448-fe3a3abad311 // indirect
