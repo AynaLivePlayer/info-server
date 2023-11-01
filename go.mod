@@ -2,13 +2,13 @@ module infoserver
 
 go 1.20
 
-replace github.com/rhine-tech/scene => ../../scene/scene
+//replace github.com/rhine-tech/scene => ../../scene/scene
 
 require (
 	github.com/AynaLivePlayer/miaosic v0.1.0
 	github.com/gin-gonic/gin v1.9.1
 	github.com/go-resty/resty/v2 v2.10.0
-	github.com/rhine-tech/scene v0.2.0
+	github.com/rhine-tech/scene v0.2.1
 	github.com/spf13/cast v1.5.1
 	github.com/stretchr/testify v1.8.4
 	github.com/tidwall/gjson v1.17.0
