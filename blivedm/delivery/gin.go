@@ -4,7 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/rhine-tech/scene"
 	sgin "github.com/rhine-tech/scene/scenes/gin"
-	"scene-service/blivedm"
+	"infoserver/blivedm"
 )
 
 type ginApp struct {

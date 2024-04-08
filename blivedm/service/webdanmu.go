@@ -6,7 +6,7 @@ import (
 	"github.com/rhine-tech/scene"
 	"github.com/rhine-tech/scene/lens/infrastructure/asynctask"
 	"github.com/rhine-tech/scene/lens/infrastructure/logger"
-	"scene-service/blivedm"
+	"infoserver/blivedm"
 )
 
 type webDanmuSingleCredImpl struct {

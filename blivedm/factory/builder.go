@@ -4,9 +4,9 @@ import (
 	"github.com/rhine-tech/scene"
 	"github.com/rhine-tech/scene/registry"
 	sgin "github.com/rhine-tech/scene/scenes/gin"
-	"scene-service/blivedm"
-	"scene-service/blivedm/delivery"
-	"scene-service/blivedm/service"
+	"infoserver/blivedm"
+	"infoserver/blivedm/delivery"
+	"infoserver/blivedm/service"
 )
 
 type App struct {

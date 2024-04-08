@@ -4,7 +4,7 @@ import (
 	openblive "github.com/aynakeya/open-bilibili-live"
 	"github.com/rhine-tech/scene"
 	"github.com/rhine-tech/scene/lens/infrastructure/logger"
-	"scene-service/blivedm"
+	"infoserver/blivedm"
 )
 
 type openBLiveApiServiceImpl struct {
