@@ -4,9 +4,9 @@ import (
 	"github.com/rhine-tech/scene"
 	"github.com/rhine-tech/scene/registry"
 	sgin "github.com/rhine-tech/scene/scenes/gin"
-	"infoserver/blivedm"
-	"infoserver/blivedm/delivery"
-	"infoserver/blivedm/service"
+	"scene-service/blivedm"
+	"scene-service/blivedm/delivery"
+	"scene-service/blivedm/service"
 )
 
 type App struct {
@@ -28,15 +28,19 @@ func (b App) Default() App {
 
 func (b App) Init() scene.LensInit {
 	return func() {
-		registry.Register[blivedm.OpenBLiveApiService](
-			service.NewOpenBLiveApiService(b.OpenBiliLiveAccessKey, b.OpenBiliLiveAccessSecret))
+
 	}
 }
 
 func (b App) Apps() []any {
 	return []any{
+
 		func() sgin.GinApplication {
-			return registry.Load(delivery.NewGinApp(nil, nil))
+			openblive := registry.Load[blivedm.OpenBLiveApiService](
+				service.NewOpenBLiveApiService(b.OpenBiliLiveAccessKey, b.OpenBiliLiveAccessSecret))
+			dmSrv := registry.Load[blivedm.WebDanmuService](
+				service.NewWebDanmuServiceSingleCredential(b.BilibiliJCT, b.BilibiliSessData))
+			return registry.Load(delivery.NewGinApp(dmSrv, openblive))
 		},
 	}
 }

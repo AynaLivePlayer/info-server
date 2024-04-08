@@ -1,10 +1,10 @@
 package service
 
 import (
-	"github.com/aynakeya/open-bilibili-live"
+	openblive "github.com/aynakeya/open-bilibili-live"
 	"github.com/rhine-tech/scene"
 	"github.com/rhine-tech/scene/lens/infrastructure/logger"
-	"infoserver/blivedm"
+	"scene-service/blivedm"
 )
 
 type openBLiveApiServiceImpl struct {
