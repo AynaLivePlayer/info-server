@@ -1,8 +1,6 @@
-package bilisrv
+package blivedm
 
-import (
-	"github.com/rhine-tech/scene"
-)
+import "github.com/rhine-tech/scene"
 
 type BiliLiveDanmuInfo struct {
 	HostList []struct {
@@ -38,4 +36,15 @@ type BiliCredentialRepo interface {
 	Upsert(credential BiliCredential) error
 	Delete(uid int) error
 	ListCredentials(offset int64, limit int64) (result []BiliCredential, total int)
+}
+
+type BiliCredentialManageService interface {
+	scene.Service
+	Get(uid int) (BiliCredential, error)
+	Upsert(credential BiliCredential) error
+	Delete(uid int) error
+	ListCredentials(offset int, limit int) (result []BiliCredential, total int)
+	// ListCredentialsByPage returns credentials by page
+	// page starts from 0, pageSize is the number of credentials per page
+	ListCredentialsByPage(page int, pageSize int) (result []BiliCredential, total int)
 }
