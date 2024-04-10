@@ -6,10 +6,7 @@ require (
 	github.com/AynaLivePlayer/blivedm-go v0.0.0-20240408074929-6565ab41764b
 	github.com/aynakeya/open-bilibili-live v0.0.3
 	github.com/gin-gonic/gin v1.9.1
-	github.com/go-resty/resty/v2 v2.7.0
-	github.com/rhine-tech/scene v0.2.5
-	github.com/spf13/cast v1.5.1
-	github.com/tidwall/gjson v1.16.0
+	github.com/rhine-tech/scene v0.2.6-0.20240410111901-6268c2f5f15d
 )
 
 require (
@@ -23,6 +20,7 @@ require (
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
 	github.com/go-playground/validator/v10 v10.14.0 // indirect
+	github.com/go-resty/resty/v2 v2.7.0 // indirect
 	github.com/goccy/go-json v0.10.2 // indirect
 	github.com/google/uuid v1.5.0 // indirect
 	github.com/gorilla/websocket v1.5.0 // indirect
@@ -42,10 +40,12 @@ require (
 	github.com/robfig/cron/v3 v3.0.1 // indirect
 	github.com/sirupsen/logrus v1.9.3 // indirect
 	github.com/spf13/afero v1.9.5 // indirect
+	github.com/spf13/cast v1.5.1 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/spf13/viper v1.16.0 // indirect
 	github.com/subosito/gotenv v1.4.2 // indirect
+	github.com/tidwall/gjson v1.16.0 // indirect
 	github.com/tidwall/match v1.1.1 // indirect
 	github.com/tidwall/pretty v1.2.1 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect

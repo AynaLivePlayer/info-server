@@ -11,10 +11,14 @@ import (
 	blivedm "infoserver/blivedm/factory"
 )
 
-const configFile = "conf.ini"
+var configFile = "conf.ini"
 
 func init() {
-	config.InitINI(configFile)
+	if scene.GetEnvironment() == scene.EnvDevelopment {
+		configFile = "conf.dev.ini"
+	} else {
+		configFile = "conf.ini"
+	}
 }
 
 func main() {
