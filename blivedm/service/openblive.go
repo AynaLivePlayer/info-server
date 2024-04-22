@@ -33,7 +33,7 @@ func NewOpenBLiveApiService(accessKey, accessSecret string) blivedm.OpenBLiveApi
 }
 
 func (o *openBLiveApiServiceImpl) SrvImplName() scene.ImplName {
-	return scene.NewSrvImplNameNoVer(blivedm.ModuleName, "OpenBLiveApiService")
+	return scene.NewModuleImplNameNoVer(blivedm.ModuleName, "OpenBLiveApiService")
 }
 
 func (o *openBLiveApiServiceImpl) AppStart(code string, appId int64) (*openblive.AppStartResult, *openblive.PublicError) {

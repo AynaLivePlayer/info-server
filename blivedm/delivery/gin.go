@@ -13,7 +13,7 @@ type ginApp struct {
 }
 
 func (g *ginApp) Name() scene.ImplName {
-	return scene.NewAppImplNameNoVer(blivedm.ModuleName, "gin")
+	return scene.NewModuleImplNameNoVer(blivedm.ModuleName, "gin")
 }
 
 func (g *ginApp) Prefix() string {

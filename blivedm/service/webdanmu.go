@@ -39,7 +39,7 @@ func NewWebDanmuServiceSingleCredential(biliJCT, sessData string) blivedm.WebDan
 }
 
 func (w *webDanmuSingleCredImpl) SrvImplName() scene.ImplName {
-	return scene.NewSrvImplName(blivedm.ModuleName, "WebDanmuService", "SingleCredential")
+	return scene.NewModuleImplName(blivedm.ModuleName, "WebDanmuService", "SingleCredential")
 }
 
 func (w *webDanmuSingleCredImpl) cookie() string {
