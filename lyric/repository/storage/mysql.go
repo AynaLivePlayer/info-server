@@ -3,16 +3,16 @@ package storage
 import (
 	"fmt"
 	"github.com/rhine-tech/scene"
-	"github.com/rhine-tech/scene/composition/database"
+	"github.com/rhine-tech/scene/composition/orm"
 	"gorm.io/gorm"
 	"infoserver/lyric"
 )
 
 type mysqlStorageImpl struct {
-	gorm database.Gorm `aperture:""`
+	gorm orm.Gorm `aperture:""`
 }
 
-func MysqlImpl(gorm database.Gorm) lyric.LyricStorageRepository {
+func MysqlImpl(gorm orm.Gorm) lyric.LyricStorageRepository {
 	return &mysqlStorageImpl{gorm: gorm}
 }
 
@@ -25,7 +25,7 @@ func (m *mysqlStorageImpl) Setup() error {
 }
 
 func (m *mysqlStorageImpl) RepoImplName() scene.ImplName {
-	return scene.NewModuleImplName("lyric", "LyricStorageRepository", "mysql")
+	return lyric.Lens.ImplName("LyricStorageRepository", "mysql")
 }
 
 func (m *mysqlStorageImpl) GetLyric(title string, artist string) (result []lyric.Song, err error) {

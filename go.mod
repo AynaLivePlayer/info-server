@@ -7,11 +7,9 @@ replace github.com/rhine-tech/scene => ../../scene/scene
 require (
 	github.com/AynaLivePlayer/blivedm-go v0.0.0-20240408074929-6565ab41764b
 	github.com/AynaLivePlayer/miaosic v0.1.6
-	github.com/aynakeya/deepcolor v1.0.2
 	github.com/aynakeya/open-bilibili-live v0.0.3
 	github.com/gin-gonic/gin v1.9.1
 	github.com/rhine-tech/scene v0.2.6-0.20240410111901-6268c2f5f15d
-	github.com/tidwall/gjson v1.16.0
 	gorm.io/gorm v1.25.4
 )
 
@@ -20,6 +18,7 @@ require (
 	github.com/XiaoMengXinX/Music163Api-Go v0.1.30 // indirect
 	github.com/andybalholm/cascadia v1.2.0 // indirect
 	github.com/antonfisher/nested-logrus-formatter v1.3.1 // indirect
+	github.com/aynakeya/deepcolor v1.0.2 // indirect
 	github.com/bytedance/sonic v1.9.1 // indirect
 	github.com/cespare/xxhash/v2 v2.2.0 // indirect
 	github.com/chenzhuoyu/base64x v0.0.0-20221115062448-fe3a3abad311 // indirect
@@ -34,6 +33,7 @@ require (
 	github.com/go-resty/resty/v2 v2.7.0 // indirect
 	github.com/go-sql-driver/mysql v1.7.1 // indirect
 	github.com/goccy/go-json v0.10.2 // indirect
+	github.com/golang-jwt/jwt v3.2.1+incompatible // indirect
 	github.com/golang/snappy v0.0.1 // indirect
 	github.com/google/uuid v1.5.0 // indirect
 	github.com/gorilla/websocket v1.5.0 // indirect
@@ -63,6 +63,7 @@ require (
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/spf13/viper v1.16.0 // indirect
 	github.com/subosito/gotenv v1.4.2 // indirect
+	github.com/tidwall/gjson v1.16.0 // indirect
 	github.com/tidwall/match v1.1.1 // indirect
 	github.com/tidwall/pretty v1.2.1 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect

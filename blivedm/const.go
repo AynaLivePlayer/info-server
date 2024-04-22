@@ -1,3 +1,5 @@
 package blivedm
 
-const ModuleName = "blivedm"
+import "github.com/rhine-tech/scene"
+
+const Lens scene.ModuleName = "blivedm"

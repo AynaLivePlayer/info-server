@@ -2,11 +2,13 @@ package main
 
 import (
 	"github.com/rhine-tech/scene"
-	database "github.com/rhine-tech/scene/composition/database/factory"
+	orm "github.com/rhine-tech/scene/composition/orm/factory"
 	"github.com/rhine-tech/scene/engines"
 	asynctask "github.com/rhine-tech/scene/infrastructure/asynctask/factory"
 	config "github.com/rhine-tech/scene/infrastructure/config/factory"
+	datasouce "github.com/rhine-tech/scene/infrastructure/datasource/factory"
 	logger "github.com/rhine-tech/scene/infrastructure/logger/factory"
+	authentication "github.com/rhine-tech/scene/lens/authentication/factory"
 	"github.com/rhine-tech/scene/registry"
 	sgin "github.com/rhine-tech/scene/scenes/gin"
 	blivedm "infoserver/blivedm/factory"
@@ -27,8 +29,10 @@ func main() {
 	config.InitINI(configFile)
 	builders := scene.ModuleFactoryArray{
 		logger.ZapFactory{}.Default(),
+		datasouce.Mysql{}.Default(),
 		asynctask.Ants{},
-		database.GormMysql{},
+		orm.GormMysql{},
+		authentication.GinAppMysql{}.Default(),
 		blivedm.App{}.Default(),
 		lyric.DefaultBuilder{},
 	}

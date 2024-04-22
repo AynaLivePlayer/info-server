@@ -1,5 +1,7 @@
 package storage
 
+import "infoserver/lyric"
+
 type tableSong struct {
 	SongID uint64 `json:"song_id" gorm:"unique;primaryKey;autoIncrement:true"`
 	Title  string `gorm:"size:255"`
@@ -10,7 +12,7 @@ type tableSong struct {
 }
 
 func (tableSong) TableName() string {
-	return "lyric_songs"
+	return lyric.Lens.TableName("songs")
 }
 
 type tableArtist struct {
@@ -22,7 +24,7 @@ type tableArtist struct {
 }
 
 func (tableArtist) TableName() string {
-	return "lyric_artists"
+	return lyric.Lens.TableName("artists")
 }
 
 type tableLyric struct {
@@ -36,7 +38,7 @@ type tableLyric struct {
 }
 
 func (tableLyric) TableName() string {
-	return "lyric_lyrics"
+	return lyric.Lens.TableName("lyrics")
 }
 
 /*

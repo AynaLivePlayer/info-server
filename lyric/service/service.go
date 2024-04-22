@@ -2,8 +2,8 @@ package service
 
 import (
 	"github.com/rhine-tech/scene"
-	"github.com/rhine-tech/scene/lens/infrastructure/asynctask"
-	"github.com/rhine-tech/scene/lens/infrastructure/logger"
+	"github.com/rhine-tech/scene/infrastructure/asynctask"
+	"github.com/rhine-tech/scene/infrastructure/logger"
 	"infoserver/lyric"
 )
 
@@ -27,7 +27,7 @@ func (l *lyricService) Setup() error {
 }
 
 func (l *lyricService) SrvImplName() scene.ImplName {
-	return scene.NewModuleImplNameNoVer("lyric", "LyricService")
+	return lyric.Lens.ImplNameNoVer("LyricService")
 }
 
 func (l *lyricService) GetLyric(title string, artist string) (result []lyric.Song, err error) {

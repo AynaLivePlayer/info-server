@@ -5,6 +5,8 @@ import (
 	"github.com/rhine-tech/scene"
 )
 
+const Lens scene.ModuleName = "lyric"
+
 type Song struct {
 	Title  string   `json:"title"`
 	Artist []string `json:"artist"`

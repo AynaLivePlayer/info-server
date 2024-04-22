@@ -20,7 +20,7 @@ func (g *ginApp) Destroy() error {
 }
 
 func (g *ginApp) Name() scene.ImplName {
-	return scene.NewModuleImplNameNoVer("lyric", "GinApplication")
+	return lyric.Lens.ImplNameNoVer("GinApplication")
 }
 
 func (g *ginApp) Prefix() string {

@@ -13,11 +13,11 @@ type ginApp struct {
 }
 
 func (g *ginApp) Name() scene.ImplName {
-	return scene.NewModuleImplNameNoVer(blivedm.ModuleName, "gin")
+	return blivedm.Lens.ImplNameNoVer("GinApplication")
 }
 
 func (g *ginApp) Prefix() string {
-	return blivedm.ModuleName
+	return blivedm.Lens.String()
 }
 
 func (g *ginApp) Create(engine *gin.Engine, router gin.IRouter) error {

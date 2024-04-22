@@ -4,8 +4,8 @@ import (
 	"fmt"
 	webApi "github.com/AynaLivePlayer/blivedm-go/api"
 	"github.com/rhine-tech/scene"
-	"github.com/rhine-tech/scene/lens/infrastructure/asynctask"
-	"github.com/rhine-tech/scene/lens/infrastructure/logger"
+	"github.com/rhine-tech/scene/infrastructure/asynctask"
+	"github.com/rhine-tech/scene/infrastructure/logger"
 	"infoserver/blivedm"
 )
 
@@ -39,7 +39,7 @@ func NewWebDanmuServiceSingleCredential(biliJCT, sessData string) blivedm.WebDan
 }
 
 func (w *webDanmuSingleCredImpl) SrvImplName() scene.ImplName {
-	return scene.NewModuleImplName(blivedm.ModuleName, "WebDanmuService", "SingleCredential")
+	return blivedm.Lens.ImplName("WebDanmuService", "SingleCredential")
 }
 
 func (w *webDanmuSingleCredImpl) cookie() string {
