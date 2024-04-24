@@ -10,6 +10,7 @@ require (
 	github.com/aynakeya/open-bilibili-live v0.0.3
 	github.com/gin-gonic/gin v1.9.1
 	github.com/rhine-tech/scene v0.2.6-0.20240410111901-6268c2f5f15d
+	github.com/sahilm/fuzzy v0.1.0
 	gorm.io/gorm v1.25.7
 )
 

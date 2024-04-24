@@ -29,9 +29,9 @@ func main() {
 	config.InitINI(configFile)
 	builders := scene.ModuleFactoryArray{
 		logger.ZapFactory{}.Default(),
-		datasouce.Sqlite{}.Default(),
+		datasouce.Mysql{}.Default(),
 		asynctask.Ants{},
-		orm.GormSqlite{},
+		orm.GormMysql{},
 		authentication.GinAppGorm{}.Default(),
 		blivedm.App{}.Default(),
 		lyric.DefaultBuilder{},

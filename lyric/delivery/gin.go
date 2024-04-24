@@ -29,17 +29,27 @@ func (g *ginApp) Prefix() string {
 
 func (g *ginApp) Create(engine *gin.Engine, router gin.IRouter) error {
 	R := sgin.RequestWrapper(g)
-	router.GET("/get", R(&searchReq{}))
+	router.GET("/get", R(&getReq{}))
+	router.GET("/search", R(&searchReq{}))
 	return nil
 }
 
-type searchReq struct {
+type getReq struct {
 	sgin.RequestQuery
 	Title  string `form:"title" json:"title" binding:"required"`
 	Artist string `form:"artist" json:"artist"`
 }
 
-func (s *searchReq) Process(ctx *sgin.Context[*ginApp]) (data any, err error) {
+func (s *getReq) Process(ctx *sgin.Context[*ginApp]) (data any, err error) {
 	result, err := ctx.App.srv.GetLyric(s.Title, s.Artist)
 	return result, err
+}
+
+type searchReq struct {
+	sgin.RequestQuery
+	Keyword string `form:"keyword" json:"keyword" binding:"required"`
+}
+
+func (s *searchReq) Process(ctx *sgin.Context[*ginApp]) (data any, err error) {
+	return ctx.App.srv.Search(s.Keyword)
 }

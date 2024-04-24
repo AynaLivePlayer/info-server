@@ -59,3 +59,13 @@ func (l *lyricService) GetLyric(title string, artist string) (result []lyric.Son
 	}
 	return result, nil
 }
+
+func (l *lyricService) Search(keyword string) (result []lyric.Song, err error) {
+	l.logger.Infof("trying to search lyric for %s", keyword)
+	result, err = l.storage.Search(keyword)
+	if err != nil {
+		l.logger.Warnf("failed to search lyric for %s: %s", keyword, err.Error())
+		return nil, lyric.ErrSearchLyricFailed
+	}
+	return rankMedia(keyword, result), nil
+}
