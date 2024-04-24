@@ -26,6 +26,7 @@ type LyricStorageRepository interface {
 	scene.Repository
 	GetLyric(title string, artist string) (result []Song, err error)
 	Add(song []Song) (err error)
+	//Search(keyword string) (result []Song, err error)
 }
 
 type LyricProvider interface {
