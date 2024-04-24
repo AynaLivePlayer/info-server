@@ -5,6 +5,7 @@ import (
 	"github.com/rhine-tech/scene/composition/orm"
 	"gorm.io/gorm"
 	"infoserver/lyric"
+	"strings"
 )
 
 type mysqlStorageImpl struct {
@@ -103,20 +104,33 @@ func (m *mysqlStorageImpl) Add(songs []lyric.Song) (err error) {
 	err = m.gorm.DB().Transaction(func(tx *gorm.DB) error {
 		for _, song := range songs {
 			var existingSong tableSong
-			// Load the song with its artists to check both name and associated artists
-			result := tx.Preload("Artists").Where("title = ?", song.Title).First(&existingSong)
-
-			if result.RowsAffected > 0 && artistsMatch(existingSong.Artists, song.Artist) {
-				continue
+			lowerdArtists := make([]string, len(song.Artist))
+			for i, artist := range song.Artist {
+				lowerdArtists[i] = strings.ToLower(artist)
 			}
-
-			// Either no song was found, or it has different artists
+			err = tx.Distinct("lyric_songs.song_id").
+				Select("lyric_songs.song_id").
+				Where("title = ?", song.Title).
+				Joins("JOIN lyric_song_artists ON lyric_song_artists.table_song_song_id = lyric_songs.song_id").
+				Joins("JOIN lyric_artists ON lyric_artists.artist_id = lyric_song_artists.table_artist_artist_id").
+				Where("LOWER(lyric_artists.name) IN ?", lowerdArtists).
+				Group("song_id").
+				Having("COUNT(DISTINCT lyric_artists.name) = ?", len(song.Artist)).
+				First(&existingSong).Error
+			if err == nil {
+				for _, lrc := range song.Lyrics {
+					newLyric := tableLyric{Lang: lrc.Lang, LyricText: lrc.Lyric, SongID: existingSong.SongID}
+					if err := tx.Create(&newLyric).Error; err != nil {
+						return err // Rollback the transaction on error
+					}
+				}
+				return nil
+			}
 			newSong := tableSong{
 				Title:   song.Title,
-				Artists: []tableArtist{},
-				Lyrics:  []tableLyric{},
+				Artists: make([]tableArtist, 0),
+				Lyrics:  make([]tableLyric, 0),
 			}
-
 			for _, artistName := range song.Artist {
 				var artist tableArtist
 				// Check if artist exists, use existing artist if so

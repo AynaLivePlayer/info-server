@@ -1,6 +1,7 @@
 package service
 
 import (
+	"fmt"
 	"github.com/sahilm/fuzzy"
 	"infoserver/lyric"
 	"sort"
@@ -13,7 +14,6 @@ type rankScore struct {
 }
 
 func rankMedia(keyword string, songs []lyric.Song) []lyric.Song {
-	patterns := strings.Split(keyword, " ")
 	data := make([]*rankScore, 0)
 
 	for i, _ := range songs {
@@ -23,7 +23,7 @@ func rankMedia(keyword string, songs []lyric.Song) []lyric.Song {
 		})
 	}
 
-	for _, pattern := range patterns {
+	for _, pattern := range strings.Split(keyword, " ") {
 		pattern = strings.ToLower(pattern)
 		dataStr := make([]string, 0)
 		for _, d := range data {
@@ -48,6 +48,7 @@ func rankMedia(keyword string, songs []lyric.Song) []lyric.Song {
 
 	result := make([]lyric.Song, 0)
 	for _, d := range data {
+		fmt.Println(d.score, d.media.Title, d.media.Artist)
 		if d.score > 0 {
 			result = append(result, *d.media)
 		}
