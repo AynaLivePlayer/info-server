@@ -7,11 +7,13 @@ import (
 	"github.com/rhine-tech/scene/infrastructure/asynctask"
 	"github.com/rhine-tech/scene/infrastructure/logger"
 	"infoserver/blivedm"
+	"time"
 )
 
 type webDanmuSingleCredImpl struct {
-	logger   logger.ILogger           `aperture:""`
-	td       asynctask.TaskDispatcher `aperture:""`
+	logger   logger.ILogger                  `aperture:""`
+	td       asynctask.TaskDispatcher        `aperture:""`
+	logRepo  blivedm.ConnectionLogRepository `aperture:""`
 	biliJCT  string
 	sessData string
 	uid      int
@@ -66,5 +68,10 @@ func (w *webDanmuSingleCredImpl) GetDanmuInfo(roomID int) (int, *webApi.DanmuInf
 		w.updateUid()
 	}
 	result, err := webApi.GetDanmuInfo(roomID, w.cookie())
+	tn := time.Now().Unix()
+	w.td.Run(func() error {
+		_ = w.logRepo.AddEntry(roomID, "webdanmu", tn)
+		return nil
+	})
 	return w.uid, result, err
 }

@@ -43,6 +43,7 @@ func (tableLyric) TableName() string {
 
 /*
 SELECT
+	DISTINCT s.song_id,
     s.Title AS Song_Name,
     a.Name AS Artist_Name,
     l.lyric_text AS Lyric,

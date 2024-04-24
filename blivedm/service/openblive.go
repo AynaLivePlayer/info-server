@@ -3,13 +3,17 @@ package service
 import (
 	openblive "github.com/aynakeya/open-bilibili-live"
 	"github.com/rhine-tech/scene"
+	"github.com/rhine-tech/scene/infrastructure/asynctask"
 	"github.com/rhine-tech/scene/infrastructure/logger"
 	"infoserver/blivedm"
+	"time"
 )
 
 type openBLiveApiServiceImpl struct {
 	logger       logger.ILogger `aperture:""`
 	apiClient    *openblive.ApiClient
+	td           asynctask.TaskDispatcher        `aperture:""`
+	logRepo      blivedm.ConnectionLogRepository `aperture:""`
 	accessKey    string
 	accessSecret string
 }
@@ -37,7 +41,15 @@ func (o *openBLiveApiServiceImpl) SrvImplName() scene.ImplName {
 }
 
 func (o *openBLiveApiServiceImpl) AppStart(code string, appId int64) (*openblive.AppStartResult, *openblive.PublicError) {
-	return o.apiClient.AppStart(code, appId)
+	rs, er := o.apiClient.AppStart(code, appId)
+	tn := time.Now().Unix()
+	if er == nil {
+		o.td.Run(func() error {
+			_ = o.logRepo.AddEntry(rs.AnchorInfo.RoomID, "openblive", tn)
+			return nil
+		})
+	}
+	return rs, er
 }
 
 func (o *openBLiveApiServiceImpl) AppEnd(appId int64, gameId string) *openblive.PublicError {

@@ -29,15 +29,16 @@ func main() {
 	config.InitINI(configFile)
 	builders := scene.ModuleFactoryArray{
 		logger.ZapFactory{}.Default(),
-		datasouce.Mysql{}.Default(),
+		datasouce.Sqlite{}.Default(),
 		asynctask.Ants{},
-		orm.GormMysql{},
-		authentication.GinAppMysql{}.Default(),
+		orm.GormSqlite{},
+		authentication.GinAppGorm{}.Default(),
 		blivedm.App{}.Default(),
 		lyric.DefaultBuilder{},
 	}
 	scene.BuildInitArray(builders).Inits()
 	registry.Logger.Infof("using config file: %s", configFile)
+	registry.Logger.Infof("Build: %s (%s)", scene.AppBuildVersion, scene.AppBuildHash[:8])
 	engine := engines.NewEngine(registry.Logger,
 		sgin.NewAppContainerWithPrefix(
 			registry.Config.GetString("scene.app.gin.addr"),

@@ -51,8 +51,8 @@ func (m *mysqlStorageImpl) GetLyric(title string, artist string) (result []lyric
 		result[i] = lyric.Song{
 			Title: song.Title,
 		}
-		for _, artist := range song.Artists {
-			result[i].Artist = append(result[i].Artist, artist.Name)
+		for _, artst := range song.Artists {
+			result[i].Artist = append(result[i].Artist, artst.Name)
 		}
 		for _, lrc := range song.Lyrics {
 			result[i].Lyrics = append(result[i].Lyrics, lyric.Lyric{Lang: lrc.Lang, Lyric: lrc.LyricText})

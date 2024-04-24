@@ -6,6 +6,7 @@ import (
 	sgin "github.com/rhine-tech/scene/scenes/gin"
 	"infoserver/blivedm"
 	"infoserver/blivedm/delivery"
+	"infoserver/blivedm/repository/connlog"
 	"infoserver/blivedm/service"
 )
 
@@ -34,8 +35,8 @@ func (b App) Init() scene.LensInit {
 
 func (b App) Apps() []any {
 	return []any{
-
 		func() sgin.GinApplication {
+			registry.Register(connlog.GormRepo(nil))
 			openblive := registry.Load[blivedm.OpenBLiveApiService](
 				service.NewOpenBLiveApiService(b.OpenBiliLiveAccessKey, b.OpenBiliLiveAccessSecret))
 			dmSrv := registry.Load[blivedm.WebDanmuService](
