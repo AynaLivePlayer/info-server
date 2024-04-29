@@ -4,6 +4,8 @@ import (
 	"github.com/rhine-tech/scene"
 	"github.com/rhine-tech/scene/composition/orm"
 	"github.com/rhine-tech/scene/infrastructure/logger"
+	"github.com/rhine-tech/scene/model"
+	"github.com/rhine-tech/scene/model/filter"
 	"infoserver/blivedm"
 )
 
@@ -36,4 +38,29 @@ func (l *logRepo) AddEntry(roomId int, source string, tim int64) error {
 		l.log.ErrorW("Failed to create room connection log", "error", err)
 	}
 	return l.db.DB().Create(&record).Error
+}
+
+func (l *logRepo) GetEntries(offset int64, limit int64, filters ...filter.Filter) (result model.PaginationResult[blivedm.ConnectionLog], err error) {
+	var records []tableLog
+	err = l.db.DB().
+		Where(l.db.WithFieldMapper(fieldMapper).BuildFilter(filters...)).
+		Offset(int(offset)).Limit(int(limit)).
+		Order("time desc").
+		Find(&records).Error
+	if err != nil {
+		l.log.ErrorW("Failed to get room connection logs", "error", err)
+		return model.PaginationResult[blivedm.ConnectionLog]{}, err
+	}
+	result.Results = make([]blivedm.ConnectionLog, len(records))
+	for i, record := range records {
+		result.Results[i] = blivedm.ConnectionLog{
+			RoomID: record.RoomID,
+			Source: record.Source,
+			Time:   record.Time,
+		}
+	}
+	l.db.DB().Model(&tableLog{}).Where(l.db.WithFieldMapper(fieldMapper).BuildFilter(filters...)).Count(&result.Total)
+	result.Offset = offset
+	result.Count = int64(len(records))
+	return result, nil
 }

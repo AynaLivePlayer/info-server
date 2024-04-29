@@ -8,8 +8,9 @@ import (
 )
 
 type ginApp struct {
-	dmSrv     blivedm.WebDanmuService     `aperture:""`
-	openblive blivedm.OpenBLiveApiService `aperture:""`
+	dmSrv     blivedm.WebDanmuService      `aperture:""`
+	openblive blivedm.OpenBLiveApiService  `aperture:""`
+	connlog   blivedm.ConnectionLogService `aperture:""`
 }
 
 func (g *ginApp) Name() scene.ImplName {
@@ -30,6 +31,8 @@ func (g *ginApp) Create(engine *gin.Engine, router gin.IRouter) error {
 	router.GET("/openblive/app_end", R(&openbliveAppEndRequest{}))
 	router.GET("/openblive/heartbeat", R(&openbliveHeartBeatRequest{}))
 
+	router.GET("/connlog", R(&connLogRequest{}))
+
 	return nil
 }
 
@@ -39,10 +42,12 @@ func (g *ginApp) Destroy() error {
 
 func NewGinApp(
 	dmSrv blivedm.WebDanmuService,
-	openblive blivedm.OpenBLiveApiService) sgin.GinApplication {
+	openblive blivedm.OpenBLiveApiService,
+	connlog blivedm.ConnectionLogService) sgin.GinApplication {
 	app := &ginApp{
 		dmSrv:     dmSrv,
 		openblive: openblive,
+		connlog:   connlog,
 	}
 	return app
 }

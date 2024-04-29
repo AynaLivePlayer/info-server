@@ -41,7 +41,8 @@ func (b App) Apps() []any {
 				service.NewOpenBLiveApiService(b.OpenBiliLiveAccessKey, b.OpenBiliLiveAccessSecret))
 			dmSrv := registry.Load[blivedm.WebDanmuService](
 				service.NewWebDanmuServiceSingleCredential(b.BilibiliJCT, b.BilibiliSessData))
-			return registry.Load(delivery.NewGinApp(dmSrv, openblive))
+			conlSrv := registry.Load[blivedm.ConnectionLogService](service.ConnectionLogService(nil))
+			return registry.Load(delivery.NewGinApp(dmSrv, openblive, conlSrv))
 		},
 	}
 }

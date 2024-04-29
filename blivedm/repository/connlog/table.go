@@ -1,6 +1,10 @@
 package connlog
 
-import "infoserver/blivedm"
+import (
+	"github.com/rhine-tech/scene/model/filter"
+	"infoserver/blivedm"
+	"infoserver/blivedm/gen/fields"
+)
 
 type tableLog struct {
 	ID     int    `gorm:"column:id;primaryKey;autoIncrement"`
@@ -11,4 +15,10 @@ type tableLog struct {
 
 func (tableLog) TableName() string {
 	return blivedm.Lens.TableName("connection_log")
+}
+
+var fieldMapper = map[filter.Field]string{
+	fields.ConnectionLog.RoomID: (tableLog{}).TableName() + "." + "room_id",
+	fields.ConnectionLog.Source: (tableLog{}).TableName() + "." + "source",
+	fields.ConnectionLog.Time:   (tableLog{}).TableName() + "." + "time",
 }

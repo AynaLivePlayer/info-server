@@ -48,8 +48,3 @@ type BiliCredentialManageService interface {
 	// page starts from 0, pageSize is the number of credentials per page
 	ListCredentialsByPage(page int, pageSize int) (result []BiliCredential, total int)
 }
-
-type ConnectionLogRepository interface {
-	scene.Repository
-	AddEntry(roomId int, source string, time int64) error
-}
