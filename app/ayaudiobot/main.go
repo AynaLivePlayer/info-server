@@ -13,6 +13,7 @@ import (
 	sgin "github.com/rhine-tech/scene/scenes/gin"
 	blivedm "infoserver/blivedm/factory"
 	lyric "infoserver/lyric/factory"
+	version "infoserver/version/factory"
 )
 
 var configFile = "conf.ini"
@@ -35,6 +36,7 @@ func main() {
 		authentication.GinAppGorm{}.Default(),
 		blivedm.App{}.Default(),
 		lyric.DefaultBuilder{},
+		version.App{},
 	}
 	scene.BuildInitArray(builders).Inits()
 	registry.Logger.Infof("using config file: %s", configFile)

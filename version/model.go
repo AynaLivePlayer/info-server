@@ -5,7 +5,7 @@ import "fmt"
 type VersionInfo struct {
 	Version     Version `json:"version"`      // Version number, in x.x.x format
 	Note        string  `json:"note"`         // Release note
-	ReleaseDate string  `json:"release_date"` // Release date
+	ReleaseTime int64   `json:"release_date"` // Release date
 }
 
 // Version is a 32-bit unsigned integer in the format of major.minor.patch
