@@ -28,6 +28,7 @@ func (v *versionSrvImpl) SrvImplName() scene.ImplName {
 }
 
 func (v *versionSrvImpl) CheckUpdate(clientVersion version.Version) (version.VersionInfo, bool) {
+	v.log.InfoW("checking update", "clientVersion", clientVersion)
 	ver, err := v.repo.GetLatest()
 	if err != nil {
 		v.log.ErrorW("fail to get latest version when checking update", "err", err)
