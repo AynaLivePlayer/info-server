@@ -68,6 +68,11 @@ func (v *versionSrvImpl) GetVersion(verNum version.Version) (version.VersionInfo
 }
 
 func (v *versionSrvImpl) UpsertVersion(ver version.VersionInfo) error {
+	v.log.InfoW("upserting version", "version", ver)
+	if ver.Version == 0 {
+		v.log.WarnW("invalid version number", "version", ver)
+		return version.ErrInvalidVersion
+	}
 	err := v.repo.UpsertVersion(ver)
 	if err != nil {
 		v.log.ErrorW("fail to upsert version", "err", err)

@@ -30,9 +30,9 @@ func main() {
 	config.InitINI(configFile)
 	builders := scene.ModuleFactoryArray{
 		logger.ZapFactory{}.Default(),
-		datasouce.Mysql{}.Default(),
+		datasouce.Sqlite{}.Default(),
 		asynctask.Ants{},
-		orm.GormMysql{},
+		orm.GormSqlite{},
 		authentication.GinAppGorm{}.Default(),
 		blivedm.App{}.Default(),
 		lyric.DefaultBuilder{},

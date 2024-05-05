@@ -6,6 +6,8 @@ import (
 	"github.com/rhine-tech/scene/model"
 	sgin "github.com/rhine-tech/scene/scenes/gin"
 	"infoserver/version"
+
+	authMdw "github.com/rhine-tech/scene/lens/authentication/delivery/middleware"
 )
 
 type ginApp struct {
@@ -32,7 +34,34 @@ func (g *ginApp) Create(engine *gin.Engine, router gin.IRouter) error {
 	R := sgin.RequestWrapper(g)
 	router.GET("/check_update", R(new(checkUpdateReq)))
 	router.GET("/latest", R(new(getLatestReq)))
+	router.GET("/list", R(new(listReq)))
+	router.POST("/upsert", authMdw.GinRequireAuth(nil), R(new(upsertReq)))
 	return nil
+}
+
+type upsertReq struct {
+	sgin.RequestJson
+	Version     string `json:"version" binding:"required"`
+	Note        string `json:"note" binding:"required"`
+	ReleaseTime int64  `json:"release_time" binding:"required"`
+}
+
+func (s *upsertReq) Process(ctx *sgin.Context[*ginApp]) (data interface{}, err error) {
+	return ctx.App.srv.UpsertVersion(version.VersionInfo{
+		Version:     version.VersionFromString(s.Version),
+		Note:        s.Note,
+		ReleaseTime: s.ReleaseTime,
+	}), nil
+}
+
+type listReq struct {
+	sgin.RequestQuery
+	Limit  int `form:"limit,default=20" json:"limit" binding:""`
+	Offset int `form:"offset,limit=0" json:"offset" binding:""`
+}
+
+func (s *listReq) Process(ctx *sgin.Context[*ginApp]) (data interface{}, err error) {
+	return ctx.App.srv.ListVersions(int64(s.Offset), int64(s.Limit))
 }
 
 type checkUpdateReq struct {

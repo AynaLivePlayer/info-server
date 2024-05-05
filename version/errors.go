@@ -9,4 +9,5 @@ var (
 	ErrFailedToListVersions = _eg.CreateError(2, "failed to list versions")
 	ErrFailedToGetVersion   = _eg.CreateError(3, "failed to get version")
 	ErrFailToUpdateVersion  = _eg.CreateError(4, "failed to update version")
+	ErrInvalidVersion       = _eg.CreateError(5, "invalid version")
 )
