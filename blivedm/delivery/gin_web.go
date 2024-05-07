@@ -37,3 +37,14 @@ type connLogRequest struct {
 func (d *connLogRequest) Process(ctx *sgin.Context[*ginApp]) (data any, err error) {
 	return ctx.App.connlog.ListEntries(int64(d.Offset), int64(d.Limit))
 }
+
+type roomLogRequest struct {
+	sgin.RequestQuery
+	Offset int `form:"offset,default=0" binding:"number" json:"offset"`
+	Limit  int `form:"limit,default=20" binding:"number" json:"limit"`
+}
+
+func (r *roomLogRequest) Process(ctx *sgin.Context[*ginApp]) (data any, err error) {
+
+	return ctx.App.connlog.GetRoomLog(int64(r.Offset), int64(r.Limit))
+}

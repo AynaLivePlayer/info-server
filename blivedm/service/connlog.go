@@ -71,3 +71,11 @@ func (c *connlogImpl) ListEntriesByTimeRange(startTime, endTime int64, offset, l
 	}
 	return result, nil
 }
+
+func (c *connlogImpl) GetRoomLog(offset int64, limit int64) (model.PaginationResult[model.JsonResponse], error) {
+	r, err := c.repo.GetRoomLog(offset, limit)
+	if err != nil {
+		return r, blivedm.ErrFailToListLogEntry
+	}
+	return r, nil
+}

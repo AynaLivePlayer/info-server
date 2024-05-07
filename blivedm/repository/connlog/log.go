@@ -64,3 +64,28 @@ func (l *logRepo) GetEntries(offset int64, limit int64, filters ...filter.Filter
 	result.Count = int64(len(records))
 	return result, nil
 }
+
+func (l *logRepo) GetRoomLog(offset int64, limit int64) (result model.PaginationResult[model.JsonResponse], err error) {
+	var records []map[string]interface{}
+	//select room_id, count(*) as count, max(time) as last_time from blivedm_connection_log
+	//	group by room_id
+	//	order by last_time DESC
+	query := l.db.DB().
+		Select("room_id, count(*) as count, max(time) as last_time").
+		Table("blivedm_connection_log").
+		Group("room_id").
+		Order("last_time DESC").
+		Offset(int(offset)).Limit(int(limit))
+	err = query.Find(&records).Error
+	if err != nil {
+		l.log.ErrorW("fail to get room connection log", "error", err)
+		return model.PaginationResult[model.JsonResponse]{}, nil
+	}
+	query.Count(&result.Total)
+	result.Offset = offset
+	for _, r := range records {
+		result.Results = append(result.Results, r)
+	}
+	result.Count = int64(len(records))
+	return result, nil
+}

@@ -3,6 +3,7 @@ package delivery
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/rhine-tech/scene"
+	authMdw "github.com/rhine-tech/scene/lens/authentication/delivery/middleware"
 	sgin "github.com/rhine-tech/scene/scenes/gin"
 	"infoserver/blivedm"
 )
@@ -31,7 +32,8 @@ func (g *ginApp) Create(engine *gin.Engine, router gin.IRouter) error {
 	router.GET("/openblive/app_end", R(&openbliveAppEndRequest{}))
 	router.GET("/openblive/heartbeat", R(&openbliveHeartBeatRequest{}))
 
-	router.GET("/connlog", R(&connLogRequest{}))
+	router.GET("/connlog", authMdw.GinRequireAuth(nil), R(new(connLogRequest)))
+	router.GET("/roomlog", authMdw.GinRequireAuth(nil), R(new(roomLogRequest)))
 
 	return nil
 }
