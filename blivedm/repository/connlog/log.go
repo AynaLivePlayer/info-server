@@ -74,9 +74,8 @@ func (l *logRepo) GetRoomLog(offset int64, limit int64) (result model.Pagination
 		Select("room_id, count(*) as count, max(time) as last_time").
 		Table("blivedm_connection_log").
 		Group("room_id").
-		Order("last_time DESC").
-		Offset(int(offset)).Limit(int(limit))
-	err = query.Find(&records).Error
+		Order("last_time DESC")
+	err = query.Offset(int(offset)).Limit(int(limit)).Find(&records).Error
 	if err != nil {
 		l.log.ErrorW("fail to get room connection log", "error", err)
 		return model.PaginationResult[model.JsonResponse]{}, nil
