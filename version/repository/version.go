@@ -56,6 +56,7 @@ func (v *versionImpl) ListVersions(offset, limit int64) (result model.Pagination
 	result.Results = versionInfos
 	err = v.db.DB().Model(&tableVersion{}).Count(&result.Total).Error
 	result.Count = int64(len(versionInfos))
+	result.Offset = offset
 	return result, err
 }
 
