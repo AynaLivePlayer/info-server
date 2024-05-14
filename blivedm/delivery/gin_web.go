@@ -11,6 +11,15 @@ type dmInfoResponse struct {
 	Error     string            `json:"error"`
 }
 
+type dmInfoV1Request struct {
+	sgin.RequestQuery
+	RoomId int `form:"room_id" binding:"required,number" json:"room_id"`
+}
+
+func (d *dmInfoV1Request) Process(ctx *sgin.Context[*ginApp]) (data any, err error) {
+	return ctx.App.dmSrv.GetDanmuInfoCompatible(d.RoomId)
+}
+
 type dmInfoRequest struct {
 	sgin.RequestQuery
 	RoomId int `form:"room_id" binding:"required,number" json:"room_id"`
@@ -45,6 +54,5 @@ type roomLogRequest struct {
 }
 
 func (r *roomLogRequest) Process(ctx *sgin.Context[*ginApp]) (data any, err error) {
-
 	return ctx.App.connlog.GetRoomLog(int64(r.Offset), int64(r.Limit))
 }

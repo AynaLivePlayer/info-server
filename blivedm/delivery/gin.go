@@ -26,6 +26,8 @@ func (g *ginApp) Create(engine *gin.Engine, router gin.IRouter) error {
 
 	R := sgin.RequestWrapper(g)
 
+	router.GET("/web/v1/dm_info", R(&dmInfoV1Request{}))
+	// this is v2 version
 	router.GET("/web/dm_info", R(&dmInfoRequest{}))
 
 	router.GET("/openblive/app_start", R(&openbliveAppStartRequest{}))

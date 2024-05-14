@@ -7,6 +7,7 @@ import (
 	"github.com/rhine-tech/scene/infrastructure/asynctask"
 	"github.com/rhine-tech/scene/infrastructure/logger"
 	"infoserver/blivedm"
+	"infoserver/blivedm/pkg/dmpacket"
 	"time"
 )
 
@@ -74,4 +75,29 @@ func (w *webDanmuSingleCredImpl) GetDanmuInfo(roomID int) (int, *webApi.DanmuInf
 		return nil
 	})
 	return w.uid, result, err
+}
+
+func (w *webDanmuSingleCredImpl) GetDanmuInfoCompatible(roomID int) (info blivedm.BiliLiveDanmuInfo, err error) {
+	uid, result, err := w.GetDanmuInfo(roomID)
+	if err != nil {
+		return
+	}
+	info.AuthBody = dmpacket.GenerateAuthBody(uid, roomID, result.Data.Token)
+	for _, host := range result.Data.HostList {
+		info.HostList = append(info.HostList, struct {
+			Host    string `json:"host"`
+			Port    int    `json:"port"`
+			WsPort  int    `json:"ws_port"`
+			WssPort int    `json:"wss_port"`
+		}{
+			Host:    host.Host,
+			Port:    host.Port,
+			WssPort: host.WssPort,
+			WsPort:  host.WsPort,
+		})
+		info.WssLink = append(info.WssLink, fmt.Sprintf("wss://%s:%d/sub", host.Host, host.WssPort))
+	}
+	info.UID = w.uid
+	info.Token = result.Data.Token
+	return info, nil
 }
