@@ -5,7 +5,7 @@ import (
 	"github.com/rhine-tech/scene/composition/orm"
 	"github.com/rhine-tech/scene/infrastructure/logger"
 	"github.com/rhine-tech/scene/model"
-	"github.com/rhine-tech/scene/model/filter"
+	"github.com/rhine-tech/scene/model/query"
 	"infoserver/blivedm"
 )
 
@@ -40,10 +40,10 @@ func (l *logRepo) AddEntry(roomId int, source string, tim int64) error {
 	return l.db.DB().Create(&record).Error
 }
 
-func (l *logRepo) GetEntries(offset int64, limit int64, filters ...filter.Filter) (result model.PaginationResult[blivedm.ConnectionLog], err error) {
+func (l *logRepo) GetEntries(offset int64, limit int64, options ...query.Option) (result model.PaginationResult[blivedm.ConnectionLog], err error) {
 	var records []tableLog
 	err = l.db.DB().
-		Where(l.db.WithFieldMapper(fieldMapper).BuildFilter(filters...)).
+		Where(l.db.WithFieldMapper(fieldMapper).Build(options...)).
 		Offset(int(offset)).Limit(int(limit)).
 		Order("time desc").
 		Find(&records).Error
@@ -59,7 +59,7 @@ func (l *logRepo) GetEntries(offset int64, limit int64, filters ...filter.Filter
 			Time:   record.Time,
 		}
 	}
-	l.db.DB().Model(&tableLog{}).Where(l.db.WithFieldMapper(fieldMapper).BuildFilter(filters...)).Count(&result.Total)
+	l.db.DB().Model(&tableLog{}).Where(l.db.WithFieldMapper(fieldMapper).Build(options...)).Count(&result.Total)
 	result.Offset = offset
 	result.Count = int64(len(records))
 	return result, nil
@@ -70,17 +70,19 @@ func (l *logRepo) GetRoomLog(offset int64, limit int64) (result model.Pagination
 	//select room_id, count(*) as count, max(time) as last_time from blivedm_connection_log
 	//	group by room_id
 	//	order by last_time DESC
-	query := l.db.DB().
+	query1 := l.db.DB().
 		Select("room_id, count(*) as count, max(time) as last_time").
 		Table("blivedm_connection_log").
-		Group("room_id").
-		Order("last_time DESC")
-	err = query.Offset(int(offset)).Limit(int(limit)).Find(&records).Error
+		Group("room_id")
+	err = query1.Order("last_time DESC").Offset(int(offset)).Limit(int(limit)).Find(&records).Error
 	if err != nil {
 		l.log.ErrorW("fail to get room connection log", "error", err)
 		return model.PaginationResult[model.JsonResponse]{}, nil
 	}
-	query.Count(&result.Total)
+	l.db.DB().
+		Select("room_id, count(*) as count, max(time) as last_time").
+		Table("blivedm_connection_log").
+		Group("room_id").Count(&result.Total)
 	result.Offset = offset
 	for _, r := range records {
 		result.Results = append(result.Results, r)

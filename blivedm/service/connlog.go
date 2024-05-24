@@ -4,7 +4,7 @@ import (
 	"github.com/rhine-tech/scene"
 	"github.com/rhine-tech/scene/infrastructure/logger"
 	"github.com/rhine-tech/scene/model"
-	"github.com/rhine-tech/scene/model/filter"
+	"github.com/rhine-tech/scene/model/query"
 	"infoserver/blivedm"
 	"infoserver/blivedm/gen/fields"
 )
@@ -36,7 +36,7 @@ func (c *connlogImpl) AddEntry(roomId int, source string, time int64) error {
 	return err
 }
 
-func (c *connlogImpl) ListEntries(offset, limit int64, filters ...filter.Filter) (model.PaginationResult[blivedm.ConnectionLog], error) {
+func (c *connlogImpl) ListEntries(offset, limit int64, filters ...query.Option) (model.PaginationResult[blivedm.ConnectionLog], error) {
 	result, err := c.repo.GetEntries(offset, limit, filters...)
 	if err != nil {
 		c.log.ErrorW("Failed to get connection log entries", "error", err)

@@ -1,11 +1,13 @@
 package fields
 
-import "github.com/rhine-tech/scene/model/filter"
+import (
+	"github.com/rhine-tech/scene/model/query"
+)
 
 var ConnectionLog = &struct {
-	RoomID filter.Field
-	Source filter.Field
-	Time   filter.Field
+	RoomID query.Field
+	Source query.Field
+	Time   query.Field
 }{
 	RoomID: "ConnectionLog.RoomID",
 	Source: "ConnectionLog.Source",

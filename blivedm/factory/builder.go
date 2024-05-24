@@ -29,20 +29,20 @@ func (b App) Default() App {
 
 func (b App) Init() scene.LensInit {
 	return func() {
-
+		registry.Register(connlog.GormRepo(nil))
 	}
 }
 
 func (b App) Apps() []any {
 	return []any{
 		func() sgin.GinApplication {
-			registry.Register(connlog.GormRepo(nil))
-			openblive := registry.Load[blivedm.OpenBLiveApiService](
-				service.NewOpenBLiveApiService(b.OpenBiliLiveAccessKey, b.OpenBiliLiveAccessSecret))
-			dmSrv := registry.Load[blivedm.WebDanmuService](
-				service.NewWebDanmuServiceSingleCredential(b.BilibiliJCT, b.BilibiliSessData))
-			conlSrv := registry.Load[blivedm.ConnectionLogService](service.ConnectionLogService(nil))
-			return registry.Load(delivery.NewGinApp(dmSrv, openblive, conlSrv))
+			return delivery.GinApp(
+				registry.Load[blivedm.WebDanmuService](
+					service.NewWebDanmuServiceSingleCredential(b.BilibiliJCT, b.BilibiliSessData)),
+				registry.Load[blivedm.OpenBLiveApiService](
+					service.NewOpenBLiveApiService(b.OpenBiliLiveAccessKey, b.OpenBiliLiveAccessSecret)),
+				registry.Load[blivedm.ConnectionLogService](service.ConnectionLogService(nil)),
+			)
 		},
 	}
 }
