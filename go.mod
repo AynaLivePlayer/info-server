@@ -2,22 +2,22 @@ module infoserver
 
 go 1.20
 
-replace github.com/rhine-tech/scene => ../../scene/scene
+//replace github.com/rhine-tech/scene => ../../scene/scene
 
 require (
 	github.com/AynaLivePlayer/blivedm-go v0.0.0-20240408074929-6565ab41764b
-	github.com/AynaLivePlayer/miaosic v0.1.6
+	github.com/AynaLivePlayer/miaosic v0.1.6-0.20240606015112-8de61ed0357b
 	github.com/aynakeya/open-bilibili-live v0.0.3
 	github.com/gin-gonic/gin v1.9.1
-	github.com/rhine-tech/scene v0.2.6-0.20240410111901-6268c2f5f15d
+	github.com/rhine-tech/scene v0.2.7
 	github.com/sahilm/fuzzy v0.1.0
 	gorm.io/gorm v1.25.7
 )
 
 require (
-	github.com/PuerkitoBio/goquery v1.7.1 // indirect
+	github.com/PuerkitoBio/goquery v1.9.2 // indirect
 	github.com/XiaoMengXinX/Music163Api-Go v0.1.30 // indirect
-	github.com/andybalholm/cascadia v1.2.0 // indirect
+	github.com/andybalholm/cascadia v1.3.2 // indirect
 	github.com/antonfisher/nested-logrus-formatter v1.3.1 // indirect
 	github.com/aynakeya/deepcolor v1.0.2 // indirect
 	github.com/bytedance/sonic v1.9.1 // indirect
@@ -34,7 +34,7 @@ require (
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
 	github.com/go-playground/validator/v10 v10.14.0 // indirect
-	github.com/go-resty/resty/v2 v2.7.0 // indirect
+	github.com/go-resty/resty/v2 v2.13.1 // indirect
 	github.com/go-sql-driver/mysql v1.7.1 // indirect
 	github.com/goccy/go-json v0.10.2 // indirect
 	github.com/golang-jwt/jwt v3.2.1+incompatible // indirect
@@ -63,12 +63,12 @@ require (
 	github.com/robfig/cron/v3 v3.0.1 // indirect
 	github.com/sirupsen/logrus v1.9.3 // indirect
 	github.com/spf13/afero v1.9.5 // indirect
-	github.com/spf13/cast v1.5.1 // indirect
+	github.com/spf13/cast v1.6.0 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/spf13/viper v1.16.0 // indirect
 	github.com/subosito/gotenv v1.4.2 // indirect
-	github.com/tidwall/gjson v1.16.0 // indirect
+	github.com/tidwall/gjson v1.17.1 // indirect
 	github.com/tidwall/match v1.1.1 // indirect
 	github.com/tidwall/pretty v1.2.1 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
@@ -82,12 +82,12 @@ require (
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.26.0 // indirect
 	golang.org/x/arch v0.3.0 // indirect
-	golang.org/x/crypto v0.21.0 // indirect
+	golang.org/x/crypto v0.24.0 // indirect
 	golang.org/x/exp v0.0.0-20230905200255-921286631fa9 // indirect
-	golang.org/x/net v0.22.0 // indirect
-	golang.org/x/sync v0.3.0 // indirect
-	golang.org/x/sys v0.18.0 // indirect
-	golang.org/x/text v0.14.0 // indirect
+	golang.org/x/net v0.26.0 // indirect
+	golang.org/x/sync v0.7.0 // indirect
+	golang.org/x/sys v0.21.0 // indirect
+	golang.org/x/text v0.16.0 // indirect
 	google.golang.org/protobuf v1.31.0 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
