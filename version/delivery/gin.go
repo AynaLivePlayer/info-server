@@ -6,6 +6,7 @@ import (
 	"github.com/rhine-tech/scene/model"
 	sgin "github.com/rhine-tech/scene/scenes/gin"
 	"infoserver/version"
+	"time"
 
 	authMdw "github.com/rhine-tech/scene/lens/authentication/delivery/middleware"
 )
@@ -43,10 +44,13 @@ type upsertReq struct {
 	sgin.RequestJson
 	Version     string `json:"version" binding:"required"`
 	Note        string `json:"note" binding:"required"`
-	ReleaseTime int64  `json:"release_time" binding:"required"`
+	ReleaseTime int64  `json:"release_time,default=0"`
 }
 
 func (s *upsertReq) Process(ctx *sgin.Context[*ginApp]) (data interface{}, err error) {
+	if s.ReleaseTime == 0 {
+		s.ReleaseTime = time.Now().Unix()
+	}
 	return ctx.App.srv.UpsertVersion(version.VersionInfo{
 		Version:     version.VersionFromString(s.Version),
 		Note:        s.Note,
