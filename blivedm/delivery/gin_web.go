@@ -7,6 +7,7 @@ import (
 	authMdw "github.com/rhine-tech/scene/lens/authentication/delivery/middleware"
 	sgin "github.com/rhine-tech/scene/scenes/gin"
 	"net/http"
+	"time"
 )
 
 type dmInfoResponse struct {
@@ -81,8 +82,9 @@ func (d *connLogRequest) Process(ctx *sgin.Context[*appContext]) (data any, err 
 
 type roomLogRequest struct {
 	sgin.RequestQuery
-	Offset int `form:"offset,default=0" binding:"number" json:"offset"`
-	Limit  int `form:"limit,default=20" binding:"number" json:"limit"`
+	Offset int  `form:"offset,default=0" binding:"number" json:"offset"`
+	Limit  int  `form:"limit,default=20" binding:"number" json:"limit"`
+	Unix   bool `form:"unix,default=true" json:"unix"`
 }
 
 func (r *roomLogRequest) GetRoute() scene.HttpRouteInfo {
@@ -97,5 +99,15 @@ func (r *roomLogRequest) Middleware() gin.HandlersChain {
 }
 
 func (r *roomLogRequest) Process(ctx *sgin.Context[*appContext]) (data any, err error) {
-	return ctx.App.connlog.GetRoomLog(int64(r.Offset), int64(r.Limit))
+	resp, err := ctx.App.connlog.GetRoomLog(int64(r.Offset), int64(r.Limit))
+	if err != nil {
+		return nil, err
+	}
+	if !r.Unix {
+		for i, entry := range resp.Results {
+			// unix time to string
+			resp.Results[i]["last_time"] = time.Unix(entry["last_time"].(int64), 0).Format("2006-01-02 15:04:05")
+		}
+	}
+	return resp, nil
 }
