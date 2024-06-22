@@ -22,7 +22,7 @@ jobs:
       - name: Update dependency
         run: |
           go mod tidy
-          go install github.com/rhine-tech/scene/tree/main/cmd/scene
+          go install github.com/rhine-tech/scene/cmd/scene@latest
 
       - name: Build static executable
         run: |
