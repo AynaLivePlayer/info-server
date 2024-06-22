@@ -6,6 +6,7 @@ import (
 	"github.com/rhine-tech/scene/infrastructure/logger"
 	"github.com/rhine-tech/scene/model"
 	"github.com/rhine-tech/scene/model/query"
+	"gorm.io/gorm"
 	"infoserver/blivedm"
 )
 
@@ -73,16 +74,13 @@ func (l *logRepo) GetRoomLog(offset int64, limit int64) (result model.Pagination
 	query1 := l.db.DB().
 		Select("room_id, count(*) as count, max(time) as last_time").
 		Table("blivedm_connection_log").
-		Group("room_id")
+		Group("room_id").Session(&gorm.Session{})
 	err = query1.Order("last_time DESC").Offset(int(offset)).Limit(int(limit)).Find(&records).Error
 	if err != nil {
 		l.log.ErrorW("fail to get room connection log", "error", err)
 		return model.PaginationResult[model.JsonResponse]{}, nil
 	}
-	l.db.DB().
-		Select("room_id, count(*) as count, max(time) as last_time").
-		Table("blivedm_connection_log").
-		Group("room_id").Count(&result.Total)
+	query1.Count(&result.Total)
 	result.Offset = offset
 	for _, r := range records {
 		result.Results = append(result.Results, r)
