@@ -5,13 +5,16 @@ import (
 	"github.com/rhine-tech/scene/infrastructure/logger"
 	"github.com/rhine-tech/scene/model"
 	"github.com/rhine-tech/scene/model/query"
+	"github.com/spf13/cast"
 	"infoserver/blivedm"
 	"infoserver/blivedm/gen/fields"
+	"infoserver/streamerstat"
 )
 
 type connlogImpl struct {
-	repo blivedm.ConnectionLogRepository `aperture:""`
-	log  logger.ILogger                  `aperture:""`
+	repo       blivedm.ConnectionLogRepository    `aperture:""`
+	streamStat streamerstat.IStreamerStatsService `aperture:""`
+	log        logger.ILogger                     `aperture:""`
 }
 
 func (c *connlogImpl) Setup() error {
@@ -76,6 +79,16 @@ func (c *connlogImpl) GetRoomLog(offset int64, limit int64) (model.PaginationRes
 	r, err := c.repo.GetRoomLog(offset, limit)
 	if err != nil {
 		return r, blivedm.ErrFailToListLogEntry
+	}
+	roomIds := make([]string, 0)
+	for _, val := range r.Results {
+		roomIds = append(roomIds, cast.ToString(val["room_id"]))
+	}
+	batch, err := c.streamStat.GetStatusBatch("bilibili", roomIds)
+	if err == nil {
+		for i, _ := range r.Results {
+			r.Results[i]["status"] = batch[i]
+		}
 	}
 	return r, nil
 }

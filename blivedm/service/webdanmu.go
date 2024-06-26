@@ -8,16 +8,19 @@ import (
 	"github.com/rhine-tech/scene/infrastructure/logger"
 	"infoserver/blivedm"
 	"infoserver/blivedm/pkg/dmpacket"
+	"infoserver/streamerstat"
+	"strconv"
 	"time"
 )
 
 type webDanmuSingleCredImpl struct {
-	logger   logger.ILogger                  `aperture:""`
-	td       asynctask.TaskDispatcher        `aperture:""`
-	logRepo  blivedm.ConnectionLogRepository `aperture:""`
-	biliJCT  string
-	sessData string
-	uid      int
+	logger     logger.ILogger                     `aperture:""`
+	td         asynctask.TaskDispatcher           `aperture:""`
+	logRepo    blivedm.ConnectionLogRepository    `aperture:""`
+	streamStat streamerstat.IStreamerStatsService `aperture:""`
+	biliJCT    string
+	sessData   string
+	uid        int
 }
 
 func (w *webDanmuSingleCredImpl) Setup() error {
@@ -72,6 +75,7 @@ func (w *webDanmuSingleCredImpl) GetDanmuInfo(roomID int) (int, *webApi.DanmuInf
 	tn := time.Now().Unix()
 	w.td.Run(func() error {
 		_ = w.logRepo.AddEntry(roomID, "webdanmu", tn)
+		_, _ = w.streamStat.UpdateStatus("bilibili", strconv.Itoa(roomID))
 		return nil
 	})
 	return w.uid, result, err

@@ -13,6 +13,7 @@ import (
 	sgin "github.com/rhine-tech/scene/scenes/gin"
 	blivedm "infoserver/blivedm/factory"
 	lyric "infoserver/lyric/factory"
+	streamerstat "infoserver/streamerstat/factory"
 	version "infoserver/version/factory"
 )
 
@@ -34,6 +35,7 @@ func main() {
 		asynctask.Ants{},
 		orm.GormSqlite{},
 		authentication.GinAppGorm{}.Default(),
+		streamerstat.App{},
 		blivedm.App{}.Default(),
 		lyric.DefaultBuilder{},
 		version.App{},

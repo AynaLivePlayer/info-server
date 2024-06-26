@@ -6,14 +6,17 @@ import (
 	"github.com/rhine-tech/scene/infrastructure/asynctask"
 	"github.com/rhine-tech/scene/infrastructure/logger"
 	"infoserver/blivedm"
+	"infoserver/streamerstat"
+	"strconv"
 	"time"
 )
 
 type openBLiveApiServiceImpl struct {
 	logger       logger.ILogger `aperture:""`
 	apiClient    *openblive.ApiClient
-	td           asynctask.TaskDispatcher        `aperture:""`
-	logRepo      blivedm.ConnectionLogRepository `aperture:""`
+	td           asynctask.TaskDispatcher           `aperture:""`
+	logRepo      blivedm.ConnectionLogRepository    `aperture:""`
+	streamStat   streamerstat.IStreamerStatsService `aperture:""`
 	accessKey    string
 	accessSecret string
 }
@@ -46,6 +49,7 @@ func (o *openBLiveApiServiceImpl) AppStart(code string, appId int64) (*openblive
 	if er == nil {
 		o.td.Run(func() error {
 			_ = o.logRepo.AddEntry(rs.AnchorInfo.RoomID, "openblive", tn)
+			_, _ = o.streamStat.UpdateStatus("bilibili", strconv.Itoa(rs.AnchorInfo.RoomID))
 			return nil
 		})
 	}
