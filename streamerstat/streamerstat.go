@@ -36,8 +36,10 @@ type IStreamerStatsService interface {
 	UpdateStatus(platform string, roomId string) (*StreamerStatus, error)
 	GetStatus(platform string, roomId string) (*StreamerStatus, error)
 	// GetStatusBatch should return a list of *StreamerStatus
-	// the return array should have same size as roomId
+	//
+	// the return array should have same size as roomId,
 	// the order should also be the same as roomId parameter
+	//
 	// if corresponding status is not found, status should be nil
 	GetStatusBatch(platform string, roomIds []string) ([]*StreamerStatus, error)
 }

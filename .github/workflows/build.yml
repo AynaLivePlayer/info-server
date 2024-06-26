@@ -24,7 +24,7 @@ jobs:
           go mod tidy
           go install github.com/rhine-tech/scene/cmd/scene@latest
 
-      - name: Build static executable
+      - name: Build executable
         run: |
           scene build --static app/ayaudiobot --out infoserver-static
           scene build app/ayaudiobot --out infoserver

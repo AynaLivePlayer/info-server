@@ -78,7 +78,10 @@ func (s *stremerServiceImpl) UpdateStatus(platform string, roomId string) (*stre
 func (s *stremerServiceImpl) GetStatus(platform string, roomId string) (*streamerstat.StreamerStatus, error) {
 	status, err := s.repo.GetStatus(platform, roomId)
 	if err != nil {
-		s.log.WarnW("failed to get status", "error", err)
+		s.log.WarnW("failed to get status",
+			"error", err,
+			"platform", platform,
+			"room_id", roomId)
 	}
 	if !errors.Is(err, streamerstat.ErrStatusNotFound) && err != nil {
 		err = streamerstat.ErrGetStatusUnknownError
