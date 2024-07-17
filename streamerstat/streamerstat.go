@@ -2,23 +2,9 @@ package streamerstat
 
 import (
 	"github.com/rhine-tech/scene"
-	"time"
 )
 
 const Lens scene.ModuleName = "streamerstat"
-
-type StreamerStatus struct {
-	Platform      string    `json:"platform" gorm:"index"`
-	RoomId        string    `json:"room_id" gorm:"index"`
-	RoomTitle     string    `json:"room_title"`
-	Username      string    `json:"username"`
-	UserID        string    `json:"user_id"`
-	Followers     int       `json:"followers"`
-	Category      string    `json:"category"`
-	IsStreaming   bool      `json:"is_streaming"`
-	LastCheckTime time.Time `json:"last_check_time"`
-	LiveUrl       string    `json:"live_url"`
-}
 
 type StreamerStatusUpdater interface {
 	Platform() string
@@ -34,6 +20,8 @@ type StreamerStatusRepository interface {
 type IStreamerStatsService interface {
 	scene.Service
 	UpdateStatus(platform string, roomId string) (*StreamerStatus, error)
+	// GetStatus should return *StreamerStatus if found.
+	// if not found. err will be ErrStatusNotFound
 	GetStatus(platform string, roomId string) (*StreamerStatus, error)
 	// GetStatusBatch should return a list of *StreamerStatus
 	//
