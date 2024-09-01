@@ -51,11 +51,11 @@ func (s *upsertReq) Process(ctx *sgin.Context[*ginApp]) (data interface{}, err e
 	if s.ReleaseTime == 0 {
 		s.ReleaseTime = time.Now().Unix()
 	}
-	return ctx.App.srv.UpsertVersion(version.VersionInfo{
+	return nil, ctx.App.srv.UpsertVersion(version.VersionInfo{
 		Version:     version.VersionFromString(s.Version),
 		Note:        s.Note,
 		ReleaseTime: s.ReleaseTime,
-	}), nil
+	})
 }
 
 type listReq struct {
