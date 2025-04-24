@@ -5,7 +5,7 @@ go 1.20
 //replace github.com/rhine-tech/scene => ../../scene/scene
 
 require (
-	github.com/AynaLivePlayer/blivedm-go v0.0.0-20240408074929-6565ab41764b
+	github.com/AynaLivePlayer/blivedm-go v0.0.0-20250424151642-66dbc68632cf
 	github.com/AynaLivePlayer/miaosic v0.1.6-0.20240606015112-8de61ed0357b
 	github.com/aynakeya/open-bilibili-live v0.0.3
 	github.com/gin-gonic/gin v1.9.1
@@ -14,7 +14,7 @@ require (
 	github.com/sahilm/fuzzy v0.1.0
 	github.com/spf13/cast v1.6.0
 	github.com/stretchr/testify v1.9.0
-	github.com/tidwall/gjson v1.17.1
+	github.com/tidwall/gjson v1.17.3
 	gorm.io/gorm v1.25.7
 )
 
@@ -46,7 +46,7 @@ require (
 	github.com/golang-jwt/jwt v3.2.1+incompatible // indirect
 	github.com/golang/snappy v0.0.1 // indirect
 	github.com/google/uuid v1.5.0 // indirect
-	github.com/gorilla/websocket v1.5.0 // indirect
+	github.com/gorilla/websocket v1.5.3 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
@@ -91,9 +91,9 @@ require (
 	golang.org/x/exp v0.0.0-20230905200255-921286631fa9 // indirect
 	golang.org/x/net v0.26.0 // indirect
 	golang.org/x/sync v0.7.0 // indirect
-	golang.org/x/sys v0.21.0 // indirect
+	golang.org/x/sys v0.25.0 // indirect
 	golang.org/x/text v0.16.0 // indirect
-	google.golang.org/protobuf v1.34.0 // indirect
+	google.golang.org/protobuf v1.34.2 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	gorm.io/driver/mysql v1.5.1 // indirect
