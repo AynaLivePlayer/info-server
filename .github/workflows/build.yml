@@ -30,7 +30,7 @@ jobs:
           scene build app/ayaudiobot --out infoserver
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ubuntu-build
           path: |
