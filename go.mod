@@ -5,7 +5,7 @@ go 1.20
 //replace github.com/rhine-tech/scene => ../../scene/scene
 
 require (
-	github.com/AynaLivePlayer/blivedm-go v0.0.0-20250424151642-66dbc68632cf
+	github.com/AynaLivePlayer/blivedm-go v0.0.0-20250527143915-74cc4b2603bc
 	github.com/AynaLivePlayer/miaosic v0.1.6-0.20240606015112-8de61ed0357b
 	github.com/aynakeya/open-bilibili-live v0.0.3
 	github.com/gin-gonic/gin v1.9.1
