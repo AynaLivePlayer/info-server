@@ -16,6 +16,7 @@ type App struct {
 	OpenBiliLiveAccessSecret string
 	BilibiliJCT              string
 	BilibiliSessData         string
+	BilibiliBuvid3           string
 }
 
 func (b App) Default() App {
@@ -24,6 +25,7 @@ func (b App) Default() App {
 		OpenBiliLiveAccessSecret: registry.Config.GetString("blivedm.openblive.access_secret"),
 		BilibiliJCT:              registry.Config.GetString("blivedm.bilibili.jct"),
 		BilibiliSessData:         registry.Config.GetString("blivedm.bilibili.sessdata"),
+		BilibiliBuvid3:           registry.Config.GetString("blivedm.bilibili.buvid3"),
 	}
 }
 
@@ -38,7 +40,7 @@ func (b App) Apps() []any {
 		func() sgin.GinApplication {
 			return delivery.GinApp(
 				registry.Load[blivedm.WebDanmuService](
-					service.NewWebDanmuServiceSingleCredential(b.BilibiliJCT, b.BilibiliSessData)),
+					service.NewWebDanmuServiceSingleCredential(b.BilibiliJCT, b.BilibiliSessData, b.BilibiliBuvid3)),
 				registry.Load[blivedm.OpenBLiveApiService](
 					service.NewOpenBLiveApiService(b.OpenBiliLiveAccessKey, b.OpenBiliLiveAccessSecret)),
 				registry.Load[blivedm.ConnectionLogService](service.ConnectionLogService(nil)),

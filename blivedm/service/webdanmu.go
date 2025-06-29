@@ -20,6 +20,7 @@ type webDanmuSingleCredImpl struct {
 	streamStat streamerstat.IStreamerStatsService `aperture:""`
 	biliJCT    string
 	sessData   string
+	buvid3     string
 	uid        int
 }
 
@@ -36,10 +37,11 @@ func (w *webDanmuSingleCredImpl) Setup() error {
 	return nil
 }
 
-func NewWebDanmuServiceSingleCredential(biliJCT, sessData string) blivedm.WebDanmuService {
+func NewWebDanmuServiceSingleCredential(biliJCT, sessData, buvid3 string) blivedm.WebDanmuService {
 	return &webDanmuSingleCredImpl{
 		biliJCT:  biliJCT,
 		sessData: sessData,
+		buvid3:   buvid3,
 		uid:      -1,
 	}
 }
@@ -49,7 +51,7 @@ func (w *webDanmuSingleCredImpl) SrvImplName() scene.ImplName {
 }
 
 func (w *webDanmuSingleCredImpl) cookie() string {
-	return fmt.Sprintf("bili_jct=%s; SESSDATA=%s", w.biliJCT, w.sessData)
+	return fmt.Sprintf("bili_jct=%s; SESSDATA=%s; buvid3=%s;", w.biliJCT, w.sessData, w.buvid3)
 
 }
 
