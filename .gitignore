@@ -2,3 +2,4 @@
 go.sum
 /dist/
 conf.dev.ini
+data.db
