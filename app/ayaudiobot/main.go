@@ -25,6 +25,7 @@ func init() {
 	} else {
 		configFile = "conf.ini"
 	}
+	registry.RegisterInjectHooks(logger.LoggerAddPrefix())
 }
 
 func main() {

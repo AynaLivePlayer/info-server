@@ -22,7 +22,6 @@ type openBLiveApiServiceImpl struct {
 }
 
 func (o *openBLiveApiServiceImpl) Setup() error {
-	o.logger = o.logger.WithPrefix(o.SrvImplName().Identifier())
 	if len(o.accessKey) < 8 || len(o.accessKey) < 8 {
 		o.logger.Errorf("invalid openblive access key or access secret")
 		return blivedm.ErrInvalidOpenBLiveApiService

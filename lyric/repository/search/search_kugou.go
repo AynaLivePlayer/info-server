@@ -66,7 +66,7 @@ package search
 //	return kg
 //}
 //
-//func (k *kugouSearchRepo) RepoImplName() string {
+//func (k *kugouSearchRepo) ImplName() string {
 //	return "lyric.repository.LyricProvider.kugou"
 //}
 //

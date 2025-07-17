@@ -16,11 +16,10 @@ type logRepo struct {
 }
 
 func (l *logRepo) Setup() error {
-	l.log = l.log.WithPrefix(l.RepoImplName().Identifier())
 	return l.db.DB().AutoMigrate(&tableLog{})
 }
 
-func (l *logRepo) RepoImplName() scene.ImplName {
+func (l *logRepo) ImplName() scene.ImplName {
 	return blivedm.Lens.ImplName("ConnectionLogRepository", "gorm")
 }
 

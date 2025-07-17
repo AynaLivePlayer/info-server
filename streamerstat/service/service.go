@@ -16,7 +16,6 @@ type stremerServiceImpl struct {
 }
 
 func (s *stremerServiceImpl) Setup() error {
-	s.log = s.log.WithPrefix(s.SrvImplName().Identifier())
 	return nil
 }
 

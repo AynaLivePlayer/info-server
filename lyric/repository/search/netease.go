@@ -16,7 +16,7 @@ func NewNeteaseProvider() lyric.LyricProvider {
 	return &neteaseSearchRepo{provider: netease.NewNetease()}
 }
 
-func (n *neteaseSearchRepo) RepoImplName() scene.ImplName {
+func (n *neteaseSearchRepo) ImplName() scene.ImplName {
 	return lyric.Lens.ImplName("LyricProvider", "netease")
 }
 

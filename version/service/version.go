@@ -19,7 +19,6 @@ func VersionService(repo version.VersionRepository) version.VersionService {
 }
 
 func (v *versionSrvImpl) Setup() error {
-	v.log = v.log.WithPrefix(v.SrvImplName().Identifier())
 	return nil
 }
 

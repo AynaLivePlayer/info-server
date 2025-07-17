@@ -16,7 +16,7 @@ func NewKuwoProvider() lyric.LyricProvider {
 	return &kuwoRepo{provider: kuwo.NewKuwo()}
 }
 
-func (n *kuwoRepo) RepoImplName() scene.ImplName {
+func (n *kuwoRepo) ImplName() scene.ImplName {
 	return lyric.Lens.ImplName("LyricProvider", "kuwo")
 }
 

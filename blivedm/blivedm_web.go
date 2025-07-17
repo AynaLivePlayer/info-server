@@ -21,5 +21,7 @@ type BiliLiveDanmuInfo struct {
 type WebDanmuService interface {
 	scene.Service
 	GetDanmuInfo(roomID int) (int, *webApi.DanmuInfo, error)
+	// GetDanmuInfoCompatible don't remember what fuck is this for,
+	// but keep it as is
 	GetDanmuInfoCompatible(roomID int) (BiliLiveDanmuInfo, error)
 }

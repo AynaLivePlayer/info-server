@@ -25,7 +25,6 @@ type webDanmuSingleCredImpl struct {
 }
 
 func (w *webDanmuSingleCredImpl) Setup() error {
-	w.logger = w.logger.WithPrefix(w.SrvImplName().Identifier())
 	if len(w.biliJCT) < 8 || len(w.sessData) < 8 {
 		w.logger.Errorf("invalid biliJCT or sessData")
 		return blivedm.ErrInvalidWebDanmuService

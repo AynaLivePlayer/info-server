@@ -8,7 +8,7 @@ import (
 var Lens scene.ModuleName = "version"
 
 type VersionRepository interface {
-	scene.Repository
+	scene.Named
 	GetLatest() (VersionInfo, error)
 	ListVersions(offset, limit int64) (model.PaginationResult[VersionInfo], error)
 	GetVersion(version Version) (VersionInfo, error)

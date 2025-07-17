@@ -6,6 +6,7 @@ type VersionInfo struct {
 	Version     Version `json:"version"`      // Version number, in x.x.x format
 	Note        string  `json:"note"`         // Release note
 	ReleaseTime int64   `json:"release_date"` // Release date
+	FileID      string  `json:"file_id"`      // FileID
 }
 
 // Version is a 32-bit unsigned integer in the format of major.minor.patch

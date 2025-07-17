@@ -24,7 +24,7 @@ func (m *mysqlStorageImpl) Setup() error {
 	return nil
 }
 
-func (m *mysqlStorageImpl) RepoImplName() scene.ImplName {
+func (m *mysqlStorageImpl) ImplName() scene.ImplName {
 	return lyric.Lens.ImplName("LyricStorageRepository", "mysql")
 }
 

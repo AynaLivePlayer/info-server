@@ -18,7 +18,6 @@ type connlogImpl struct {
 }
 
 func (c *connlogImpl) Setup() error {
-	c.log = c.log.WithPrefix(c.SrvImplName().Identifier())
 	return nil
 }
 

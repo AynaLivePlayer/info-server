@@ -13,7 +13,7 @@ type ConnectionLog struct {
 }
 
 type ConnectionLogRepository interface {
-	scene.Repository
+	scene.Named
 	AddEntry(roomId int, source string, time int64) error
 	GetEntries(offset int64, limit int64, options ...query.Option) (result model.PaginationResult[ConnectionLog], err error)
 	GetRoomLog(offset int64, limit int64) (model.PaginationResult[model.JsonResponse], error)

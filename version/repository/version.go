@@ -22,7 +22,7 @@ func (v *versionImpl) Setup() error {
 	return err
 }
 
-func (v *versionImpl) RepoImplName() scene.ImplName {
+func (v *versionImpl) ImplName() scene.ImplName {
 	return version.Lens.ImplNameNoVer("VersionRepository")
 }
 
@@ -51,6 +51,7 @@ func (v *versionImpl) ListVersions(offset, limit int64) (result model.Pagination
 			Version:     version.Version(ver.Version),
 			Note:        ver.Note,
 			ReleaseTime: ver.ReleaseDate,
+			FileID:      ver.FileID,
 		})
 	}
 	result.Results = versionInfos
@@ -70,6 +71,7 @@ func (v *versionImpl) GetVersion(ver version.Version) (version.VersionInfo, erro
 		Version:     ver,
 		Note:        verTable.Note,
 		ReleaseTime: verTable.ReleaseDate,
+		FileID:      verTable.FileID,
 	}, nil
 }
 
@@ -78,6 +80,7 @@ func (v *versionImpl) UpsertVersion(ver version.VersionInfo) error {
 		Version:     uint32(ver.Version),
 		Note:        ver.Note,
 		ReleaseDate: ver.ReleaseTime,
+		FileID:      ver.FileID,
 	}
 	err := v.db.DB().
 		Where(tableVersion{Version: uint32(ver.Version)}).

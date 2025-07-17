@@ -22,7 +22,6 @@ func NewLyricService(storage lyric.LyricStorageRepository, providers ...lyric.Ly
 }
 
 func (l *lyricService) Setup() error {
-	l.logger = l.logger.WithPrefix(l.SrvImplName().Identifier())
 	return nil
 }
 
@@ -42,7 +41,7 @@ func (l *lyricService) GetLyric(title string, artist string) (result []lyric.Son
 		if err != nil {
 			continue
 		}
-		l.logger.Infof("provider %s found lyric for %s - %s", v.RepoImplName(), title, artist)
+		l.logger.Infof("provider %s found lyric for %s - %s", v.ImplName(), title, artist)
 		result = append(result, rs)
 		l.dispatcher.Run(
 			func() error {
